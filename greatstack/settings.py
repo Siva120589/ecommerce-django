@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from django.contrib.messages import constants as messages
 import os
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,12 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=n-_lnxw)$iq7d+i*lq-$&-&jczzj(5j-aduktzwlm61p5ef=o'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=True, cast=bool)  # True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'django-gratstack-env.eba-pybpthgm.us-west-2.elasticbeanstalk.com']
 
 
 # Application definition
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     'store',
     'carts',
     'orders',
+    'admin_honeypot',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +57,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',
 ]
+
+SESSION_EXPIRE_SECONDS = 3600  # Expire after 30 minutes
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+# Replace 'home/' with your desired URL
+SESSION_TIMEOUT_REDIRECT = 'accounts/login'
 
 ROOT_URLCONF = 'greatstack.urls'
 
@@ -141,12 +150,11 @@ MESSAGE_TAGS = {
 }
 
 # SMTP configuration
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'sivakumarjeevavantham@gmail.com'
-EMAIL_HOST_PASSWORD = 'dxpq xaue lomo uhzh'
-EMAIL_USE_TLS = True
-
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
