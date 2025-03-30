@@ -29,7 +29,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=True, cast=bool)  # True
 
 ALLOWED_HOSTS = [
-    'django-gratstack-env.eba-pybpthgm.us-west-2.elasticbeanstalk.com']
+    'django-ecomm-env.eba-ehevsype.us-west-2.elasticbeanstalk.com']
 
 
 # Application definition
