@@ -10,10 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-from django.contrib.messages import constants as messages
 import os
+from django.contrib.messages import constants as messages
+
 from pathlib import Path
 from decouple import config
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +32,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=True, cast=bool)  # True
 
 ALLOWED_HOSTS = [
-    'django-ecomm-env.eba-ehevsype.us-west-2.elasticbeanstalk.com']
+    'django-greatkart-env.eba-njd3akq4.us-west-2.elasticbeanstalk.com']
 
 # Application definition
 
@@ -98,6 +101,17 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('DB_NAME'),
+#         'USER': os.getenv('DB_USER'),
+#         'PASSWORD': os.getenv('DB_PASSWORD'),
+#         'HOST': os.getenv('DB_HOST'),
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
