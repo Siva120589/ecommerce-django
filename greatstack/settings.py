@@ -102,13 +102,24 @@ AUTH_USER_MODEL = 'accounts.Account'
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': config('DB_NAME'),
+#         'USER': config('DB_USER'),
+#         'PASSWORD': config('DB_PASSWORD'),
+#         'HOST': config('DB_HOST'),
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
+        'NAME': 'ebdb',
+        'USER': 'ebroot',
+        'PASSWORD': 'Siva11998899q',
+        'HOST': 'awseb-e-4pkpw8heqp-stack-awsebrdsdatabase-udesebw5hfxx.c3oy6ie4ymlh.us-west-2.rds.amazonaws.com',
         'PORT': '5432',
     }
 }
