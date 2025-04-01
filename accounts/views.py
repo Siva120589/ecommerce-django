@@ -156,7 +156,11 @@ def dashboard(request):
         '-created_at').filter(user_id=request.user.id, is_ordered=True)
     orders_count = orders.count()
 
-    userprofile = UserProfile.objects.get(user_id=request.user.id)
+    try:
+        userprofile = UserProfile.objects.get(user_id=request.user.id)
+    except (UserProfile.DoesNotExist):
+        userprofile = None
+
     context = {
         'orders_count': orders_count,
         'userprofile': userprofile,
