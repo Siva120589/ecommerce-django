@@ -243,10 +243,10 @@ def my_orders(request):
 
 @login_required(login_url='login')
 def edit_profile(request):
-    # userprofile = get_object_or_404(UserProfile, user=request.user)
+    userprofile = get_object_or_404(UserProfile, user=request.user)
     try:
         userprofile = UserProfile.objects.get(user_id=request.user.id)
-    except:
+    except (UserProfile.DoesNotExist):
         pass
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
