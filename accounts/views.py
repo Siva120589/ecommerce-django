@@ -247,16 +247,15 @@ def edit_profile(request):
     try:
         userprofile = UserProfile.objects.get(user_id=request.user.id)
     except (UserProfile.DoesNotExist):
-        userprofile = None
-
+        pass
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
-        if userprofile is not None:
-            profile_form = UserProfileForm(
-                request.POST, request.FILES, instance=userprofile)
-        else:
-            profile_form = UserProfileForm(
-                request.POST, request.FILES)
+        # if userprofile is not None:
+        profile_form = UserProfileForm(
+            request.POST, request.FILES, instance=userprofile)
+        # else:
+        #     profile_form = UserProfileForm(
+        #         request.POST, request.FILES)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
