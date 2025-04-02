@@ -255,8 +255,19 @@ def edit_profile(request):
             profile_form = UserProfileForm(
                 request.POST, request.FILES, instance=userprofile)
         else:
-            profile_form = UserProfileForm(
-                request.POST, request.FILES)
+            profile_form = UserProfileForm(request.POST, request.FILES)
+            if profile_form.is_valid():
+                address_line_1 = profile_form.cleaned_data['address_line_1']
+                address_line_2 = profile_form.cleaned_data['address_line_2']
+                city = profile_form.cleaned_data['city']
+                state = profile_form.cleaned_data['state']
+                country = profile_form.cleaned_data['country']
+                userprofile = UserProfile(
+                    user=request.user, address_line_1=address_line_1, address_line_2=address_line_2, profile_picture=request.FILES["profile_picture"], city=city, state=state, country=country)
+                # userprofile.profile_picture = request.FILES
+                userprofile.save()
+                messages.success(request, 'Your profile has been updated.')
+                return redirect('edit_profile')
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
