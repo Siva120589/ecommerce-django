@@ -161,7 +161,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
 STATICFILES_DIRS = [
-    'greatstack/static',
+    BASE_DIR / "greatstack" / "static",
 ]
 
 
